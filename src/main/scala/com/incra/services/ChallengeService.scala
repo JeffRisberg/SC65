@@ -55,4 +55,16 @@ class ChallengeService(implicit val bindingModule: BindingModule) extends Inject
         TableQuery[ChallengeTable].where(_.id === id).firstOption
     }
   }
+
+  /**
+   *
+   */
+  def addChallenge(newChallenge: Challenge): Unit = {
+    mainDatabase withSession {
+      implicit session =>
+        val challenges = TableQuery[ChallengeTable]
+
+        challenges += newChallenge
+    }
+  }
 }
