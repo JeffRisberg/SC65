@@ -3,7 +3,7 @@
 ## Build & Run ##
 
 ```sh
-$ cd SC55
+$ cd SC65
 $ ./sbt
 > container:start
 > browse

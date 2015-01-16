@@ -1,0 +1,10 @@
+<h2>List of Challenges</h2>
+
+<table class="table">
+<tr><th>Name</th><th>Start</th><th>End</th></tr>
+<tr ng-repeat="challenge in items">
+    <td>{{challenge.name}}</td>
+    <td>{{challenge.startDate | date: MM/dd/yy}}</td>
+    <td>{{challenge.endDate | date: MM/dd/yy}}</td>
+</tr>
+</table>

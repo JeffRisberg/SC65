@@ -1,1 +1,1 @@
-console.log("this is app.js");
+var myApp = angular.module('challenges', []);

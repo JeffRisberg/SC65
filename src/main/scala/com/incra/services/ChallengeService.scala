@@ -1,6 +1,6 @@
 package com.incra.services
 
-import java.sql.Date
+import java.sql.{Timestamp, Date}
 
 import com.escalatesoft.subcut.inject.{BindingModule, Injectable}
 import com.incra.model.{Challenge, ChallengeTable, TeamworkType}
@@ -25,11 +25,11 @@ class ChallengeService(implicit val bindingModule: BindingModule) extends Inject
         (challenges.ddl).create
 
         challenges += Challenge(None, "Fall Hiking", TeamworkType.Team,
-          new Date(113, 8, 1), new Date(113, 10, 20), false)
+          Timestamp.valueOf("2014-10-03 22:10:10.0"), Timestamp.valueOf("2014-10-31 23:59:59.0"), false)
         challenges += Challenge(Some(101), "Walk to the Moon", TeamworkType.Individual,
-          new Date(113, 5, 6), new Date(113, 6, 8), true)
+          Timestamp.valueOf("2014-07-20 22:00:00.0"), Timestamp.valueOf("2014-12-31 23:59:59.0"), true)
         challenges += Challenge(None, "Holiday Ship-Shape", TeamworkType.Team,
-          new Date(113, 10, 1), new Date(114, 1, 3), false)
+          Timestamp.valueOf("2014-12-01 00:00:00.0"), Timestamp.valueOf("2014-12-31 23:59:59.0"), false)
       }
   }
   println("EndInitChallengeService")

@@ -5,7 +5,7 @@ import com.incra.services.{LeaderboardService, ChallengeService, ActivityService
 
 /**
  * @author Jeff Risberg
- * @since late August 2014
+ * @since 12/05/2014
  */
 class MainServlet(implicit val bindingModule: BindingModule) extends SC65Stack {
 
@@ -21,14 +21,6 @@ class MainServlet(implicit val bindingModule: BindingModule) extends SC65Stack {
     ssp("/index")
   }
 
-  get("/activity") {
-    contentType = "text/html"
-
-    val activities = activityService.getEntityList()
-
-    ssp("/activity/index")
-  }
-
   get("/activity.json") {
     contentType = formats("json")
 
@@ -40,26 +32,18 @@ class MainServlet(implicit val bindingModule: BindingModule) extends SC65Stack {
   }
 
   get("/activity/:id") {
-    contentType = "text/html"
+    contentType = formats("json")
 
-    val activityOpt = activityService.findById(params("id").toLong)
+    trapData {
+      val activityOpt = activityService.findById(params("id").toLong)
 
-    if (activityOpt.isDefined) {
-      val activity = activityOpt.get
-
-      ssp("/activity/show")
+      if (activityOpt.isDefined) {
+        activityOpt.get
+      }
+      else {
+        None
+      }
     }
-    else {
-      redirect("/activity")
-    }
-  }
-
-  get("/challenge") {
-    contentType = "text/html"
-
-    val challenges = challengeService.getEntityList()
-
-    ssp("/challenge/index")
   }
 
   get("/challenge.json") {
@@ -73,31 +57,15 @@ class MainServlet(implicit val bindingModule: BindingModule) extends SC65Stack {
   }
 
   get("/challenge/:id") {
-    contentType = "text/html"
+    contentType = formats("json")
 
     val challengeOpt = challengeService.findById(params("id").toLong)
     if (challengeOpt.isDefined) {
-      val challenge = challengeOpt.get
-
-      val data1 = List("title" -> "SC65 Challenge")
-      val data2 = data1 ++ List("challenge" -> challenge)
-
-      ssp("/challenge/show", data2.toSeq: _*)
+      challengeOpt.get
     }
     else {
-      redirect("/challenge")
+      None
     }
-  }
-
-  get("/leaderboard") {
-    contentType = "text/html"
-
-    val leaderboards = leaderboardService.getEntityList()
-
-    val data1 = List("title" -> "SC65 Leaderboards")
-    val data2 = data1 ++ List("name" -> "Brocade-San Jose", "leaderboards" -> leaderboards)
-
-    ssp("/leaderboard/index", data2.toSeq: _*)
   }
 
   get("/leaderboard.json") {
@@ -111,19 +79,17 @@ class MainServlet(implicit val bindingModule: BindingModule) extends SC65Stack {
   }
 
   get("/leaderboard/:id") {
-    contentType = "text/html"
+    contentType = formats("json")
 
-    val leaderboardOpt = leaderboardService.findById(params("id").toLong)
-    if (leaderboardOpt.isDefined) {
-      val leaderboard = leaderboardOpt.get
+    trapData {
+      val leaderboardOpt = leaderboardService.findById(params("id").toLong)
 
-      val data1 = List("title" -> "SC65 Leaderboard")
-      val data2 = data1 ++ List("leaderboard" -> leaderboard)
-
-      ssp("/leaderboard/show", data2.toSeq: _*)
-    }
-    else {
-      redirect("/leaderboard")
+      if (leaderboardOpt.isDefined) {
+        leaderboardOpt.get
+      }
+      else {
+        None
+      }
     }
   }
 }

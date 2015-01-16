@@ -1,6 +1,6 @@
 package com.incra.model
 
-import java.sql.Date
+import java.sql.Timestamp
 
 import com.incra.model.TeamworkType.TeamworkType
 
@@ -13,7 +13,7 @@ import scala.slick.driver.MySQLDriver.simple._
  * @since 06/11/2014
  */
 case class Challenge(id: Option[Long], name: String, teamworkType: TeamworkType,
-                     startDate: Date, endDate: Date, active: Boolean) extends Entity[Long]
+                     startDate: Timestamp, endDate: Timestamp, active: Boolean) extends Entity[Long]
 
 class ChallengeTable(tag: Tag) extends Table[Challenge](tag, "CHALLENGE") {
 
@@ -25,9 +25,9 @@ class ChallengeTable(tag: Tag) extends Table[Challenge](tag, "CHALLENGE") {
 
   def teamworkType = column[TeamworkType]("TEAMWORK_TYPE")
 
-  def startDate = column[Date]("START_DATE")
+  def startDate = column[Timestamp]("START_DATE")
 
-  def endDate = column[Date]("END_DATE")
+  def endDate = column[Timestamp]("END_DATE")
 
   def active = column[Boolean]("ACTIVE")
 
