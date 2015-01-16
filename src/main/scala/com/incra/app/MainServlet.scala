@@ -25,9 +25,7 @@ class MainServlet(implicit val bindingModule: BindingModule) extends SC65Stack {
     contentType = formats("json")
 
     trapData {
-      val activities = activityService.getEntityList()
-
-      activities
+      activityService.getEntityList()
     }
   }
 
@@ -35,14 +33,7 @@ class MainServlet(implicit val bindingModule: BindingModule) extends SC65Stack {
     contentType = formats("json")
 
     trapData {
-      val activityOpt = activityService.findById(params("id").toLong)
-
-      if (activityOpt.isDefined) {
-        activityOpt.get
-      }
-      else {
-        None
-      }
+      activityService.findById(params("id").toLong)
     }
   }
 
@@ -50,21 +41,15 @@ class MainServlet(implicit val bindingModule: BindingModule) extends SC65Stack {
     contentType = formats("json")
 
     trapData {
-      val challenges = challengeService.getEntityList()
-
-      challenges
+      challengeService.getEntityList()
     }
   }
 
   get("/challenge/:id") {
     contentType = formats("json")
 
-    val challengeOpt = challengeService.findById(params("id").toLong)
-    if (challengeOpt.isDefined) {
-      challengeOpt.get
-    }
-    else {
-      None
+    trapData {
+      challengeService.findById(params("id").toLong)
     }
   }
 
@@ -72,9 +57,7 @@ class MainServlet(implicit val bindingModule: BindingModule) extends SC65Stack {
     contentType = formats("json")
 
     trapData {
-      val leaderboards = leaderboardService.getEntityList()
-
-      leaderboards
+      leaderboardService.getEntityList()
     }
   }
 
@@ -82,14 +65,7 @@ class MainServlet(implicit val bindingModule: BindingModule) extends SC65Stack {
     contentType = formats("json")
 
     trapData {
-      val leaderboardOpt = leaderboardService.findById(params("id").toLong)
-
-      if (leaderboardOpt.isDefined) {
-        leaderboardOpt.get
-      }
-      else {
-        None
-      }
+      leaderboardService.findById(params("id").toLong)
     }
   }
 }

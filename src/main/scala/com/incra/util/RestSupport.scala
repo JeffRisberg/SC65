@@ -27,7 +27,6 @@ trait RestSupport {
         status_=(HttpServletResponse.SC_UNAUTHORIZED)
         Map("success" -> false, "message" -> "Unable to authenticate/authorize user")
       case exception: Exception =>
-        log.info(exception.getMessage, exception)
         log.error(exception.getMessage, exception)
         setErrorStatus()
         Map("success" -> false, "message" -> "An unknown error has occurred")
@@ -36,7 +35,7 @@ trait RestSupport {
 
   def trapEntityResult(result: => Document): Document = {
     try {
-      val success = true;
+      val success = true
       if (!success) {
         status_=(422)
         result
