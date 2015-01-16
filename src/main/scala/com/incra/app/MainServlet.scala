@@ -26,10 +26,7 @@ class MainServlet(implicit val bindingModule: BindingModule) extends SC65Stack {
 
     val activities = activityService.getEntityList()
 
-    val data1 = List("title" -> "SC65 Activities")
-    val data2 = data1 ++ List("name" -> "George Washington", "activities" -> activities)
-
-    ssp("/activity/index", data2.toSeq: _*)
+    ssp("/activity/index")
   }
 
   get("/activity.json") {
@@ -50,10 +47,7 @@ class MainServlet(implicit val bindingModule: BindingModule) extends SC65Stack {
     if (activityOpt.isDefined) {
       val activity = activityOpt.get
 
-      val data1 = List("title" -> "SC65 Activity")
-      val data2 = data1 ++ List("activity" -> activity)
-
-      ssp("/activity/show", data2.toSeq: _*)
+      ssp("/activity/show")
     }
     else {
       redirect("/activity")
@@ -65,10 +59,7 @@ class MainServlet(implicit val bindingModule: BindingModule) extends SC65Stack {
 
     val challenges = challengeService.getEntityList()
 
-    val data1 = List("title" -> "SC65 Challenges")
-    val data2 = data1 ++ List("name" -> "Brocade-San Jose", "challenges" -> challenges)
-
-    ssp("/challenge/index", data2.toSeq: _*)
+    ssp("/challenge/index")
   }
 
   get("/challenge.json") {
