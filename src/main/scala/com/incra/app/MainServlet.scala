@@ -21,22 +21,6 @@ class MainServlet(implicit val bindingModule: BindingModule) extends SC65Stack {
     ssp("/index")
   }
 
-  get("/activity.json") {
-    contentType = formats("json")
-
-    trapData {
-      activityService.getEntityList()
-    }
-  }
-
-  get("/activity/:id") {
-    contentType = formats("json")
-
-    trapData {
-      activityService.findById(params("id").toLong)
-    }
-  }
-
   get("/challenge.json") {
     contentType = formats("json")
 
@@ -50,6 +34,27 @@ class MainServlet(implicit val bindingModule: BindingModule) extends SC65Stack {
 
     trapData {
       challengeService.findById(params("id").toLong)
+    }
+  }
+
+  put("challenge") {
+    // write to the challengService
+
+  }
+
+  get("/activity.json") {
+    contentType = formats("json")
+
+    trapData {
+      activityService.getEntityList()
+    }
+  }
+
+  get("/activity/:id") {
+    contentType = formats("json")
+
+    trapData {
+      activityService.findById(params("id").toLong)
     }
   }
 
