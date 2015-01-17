@@ -6,30 +6,71 @@ myApp.controller('HomeController', ['$scope', '$http', function ($scope, $http) 
     //    {name: 'Challenge2', startDate: new Date(101, 7, 5), endDate: new Date(101, 8, 1)}
     //];
 
-    $scope.items = {};
+    $scope.challenges = {};
+    $scope.activities = {};
+
+    $scope.teamworkTypes = [
+        { name: "Individual", value: 1},
+        { name: "Team", value: 2}
+    ];
+
+    $scope.addTeamworkType = $scope.teamworkTypes[0];
 
     $scope.remove = function (index) {
-            $scope.items.splice(index, 1);
+        $scope.items.splice(index, 1);
     };
 
     $scope.challengeAdd = function () {
-            $scope.items.push({name: $scope.addName, startDate: new Date(2014, 7, 5), endDate: new Date(2014, 8, 1)});
-            $scope.addName = "";
-            $scope.addStartDate = "";
-            $scope.addEndDate = "";
+        var name = $scope.addName;
+        var startDate = Date.parse($scope.addStartDate);
+        var endDate = Date.parse($scope.addEndDate);
+        var teamworkType = $scope.addTeamworkType.value;
 
-            $scope.appState = "challengeList";
-        };
+        var challenge = {name: name, startDate: startDate, endDate: endDate, active: true, teamworkType: teamworkType};
 
-    // perform the initial fetch
-    $http.get('challenge.json').
-        success(function (response, status, headers, config) {
+        $scope.challenges.push(challenge);
+        $scope.addName = "";
+        $scope.addStartDate = "";
+        $scope.addEndDate = "";
+        $scope.addTeamworkType = $scope.teamworkTypes[0];
 
-            $scope.items = response.data;
-        }).
-        error(function (data, status, headers, config) {
-            // log error
-            console.log("error");
-        })
+        $http.put("challenge", challenge).
+            success(function (response, status) {
+                $scope.appState = "challengeList";
+            });
+    };
 
+    function fetchChallenges() {
+        // perform the initial fetches
+        $http.get('challenge.json').
+            success(function (response, status, headers, config) {
+
+                $scope.challenges = [];
+                angular.forEach(response.data, function (value) {
+                    var challenge = value;
+                    challenge.startDate = new Date(value.startDate);
+                    challenge.endDate = new Date(value.endDate);
+                    $scope.challenges.push(challenge);
+                });
+            }).
+            error(function (data, status, headers, config) {
+                // log error
+                console.log("error");
+            })
+    }
+
+    function fetchActivities() {
+        $http.get('activity.json').
+            success(function (response, status, headers, config) {
+
+                $scope.activities = response.data;
+            }).
+            error(function (data, status, headers, config) {
+                // log error
+                console.log("error");
+            })
+    }
+
+    fetchChallenges();
+    fetchActivities();
 }]);

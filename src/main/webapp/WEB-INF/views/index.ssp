@@ -5,6 +5,10 @@
     Show Challenges
 </button>
 
+<button class="btn btn-primary" ng-click="appState = 'activityList'">
+    Show Activities
+</button>
+
 </div>
 
 <div ng-show="appState == 'challengeList'">
@@ -17,11 +21,19 @@
 </div>
 
 <table class="table">
-    <tr><th>Name</th><th>Start</th><th>End</th></tr>
-    <tr ng-repeat="challenge in items">
+    <tr>
+        <th>Name</th>
+        <th>Teamwork Type</th>
+        <th>Start</th>
+        <th>End</th>
+        <th>Active</th>
+    </tr>
+    <tr ng-repeat="challenge in challenges">
         <td>{{challenge.name}}</td>
-        <td>{{challenge.startDate | date: MM/dd/yy}}</td>
-        <td>{{challenge.endDate | date: MM/dd/yy}}</td>
+        <td>{{challenge.teamworkType.name}}</td>
+        <td>{{challenge.startDate | date : 'MM/dd/yy' : 'UTC'}}</td>
+        <td>{{challenge.endDate | date : 'MM/dd/yy' : 'UTC'}}</td>
+        <td>{{challenge.active}}</td>
     </tr>
 </table>
 
@@ -45,9 +57,26 @@ Name: <input type="text" class="span2" placeholder="ItemName" ng-model="addName"
 <br/>
 Start Date: <input type="text" class="span2" placeholder="ItemStartDate" ng-model="addStartDate">
 <br/>
-    End Date: <input type="text" class="span2" placeholder="ItemEndDate" ng-model="addEndDate">
-    </div>
-    <button class="btn btn-primary" ng-click="challengeAdd()">
+End Date: <input type="text" class="span2" placeholder="ItemEndDate" ng-model="addEndDate">
+<br/>
+    Teamwork Type: <select ng-model="addTeamworkType" ng-options="teamworkType.name for teamworkType in teamworkTypes">
+    </select>
+</div>
+<button class="btn btn-primary" ng-click="challengeAdd()">
     Ok
-    </button>
+</button>
+</div>
+
+<div ng-show="appState == 'activityList'">
+<h3>Activities</h3>
+
+<table class="table">
+    <tr><th>Name</th><th>Description</th><th>Unit of Measure</th></tr>
+    <tr ng-repeat="activity in activities">
+        <td>{{activity.name}}</td>
+        <td>{{activity.description}}</td>
+        <td>{{activity.uom}}</td>
+    </tr>
+</table>
+
 </div>
