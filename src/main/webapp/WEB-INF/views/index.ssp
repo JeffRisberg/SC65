@@ -31,8 +31,8 @@
     <tr ng-repeat="challenge in challenges">
         <td>{{challenge.name}}</td>
         <td>{{challenge.teamworkType.name}}</td>
-        <td>{{challenge.startDate | date : 'MM/dd/yy' : 'UTC'}}</td>
-        <td>{{challenge.endDate | date : 'MM/dd/yy' : 'UTC'}}</td>
+        <td>{{challenge.startDate | date : 'MM/dd/yyyy' : 'UTC'}}</td>
+        <td>{{challenge.endDate | date : 'MM/dd/yyyy' : 'UTC'}}</td>
         <td>{{challenge.active}}</td>
     </tr>
 </table>

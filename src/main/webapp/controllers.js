@@ -1,11 +1,6 @@
 myApp.controller('HomeController', ['$scope', '$http', function ($scope, $http) {
     $scope.appState = "home";
 
-    //$scope.items = [
-    //    {name: 'Challenge1', startDate: new Date(101, 5, 5), endDate: new Date(101, 6, 1)},
-    //    {name: 'Challenge2', startDate: new Date(101, 7, 5), endDate: new Date(101, 8, 1)}
-    //];
-
     $scope.challenges = {};
     $scope.activities = {};
 
@@ -24,7 +19,14 @@ myApp.controller('HomeController', ['$scope', '$http', function ($scope, $http) 
         var name = $scope.addName;
         var startDate = Date.parse($scope.addStartDate);
         var endDate = Date.parse($scope.addEndDate);
-        var teamworkType = $scope.addTeamworkType.value;
+        var teamworkTypeValue = $scope.addTeamworkType.value;
+        var teamworkType = $scope.teamworkTypes[0];
+
+        $scope.teamworkTypes.forEach(function (t) {
+            if (t.value == teamworkTypeValue) {
+                teamworkType = t;
+            }
+        });
 
         var challenge = {name: name, startDate: startDate, endDate: endDate, active: true, teamworkType: teamworkType};
 

@@ -24,12 +24,17 @@ class ChallengeService(implicit val bindingModule: BindingModule) extends Inject
       if (MTable.getTables("challenge").list().isEmpty) {
         (challenges.ddl).create
 
-        challenges += Challenge(None, "Fall Hiking", TeamworkType.Team,
-          Date.valueOf("2014-10-03 22:10:10.0"), Date.valueOf("2014-10-31 23:59:59.0"), false)
-        challenges += Challenge(Some(101), "Walk to the Moon", TeamworkType.Individual,
-          Date.valueOf("2014-07-20 22:00:00.0"), Date.valueOf("2014-12-31 23:59:59.0"), true)
-        challenges += Challenge(None, "Holiday Ship-Shape", TeamworkType.Team,
-          Date.valueOf("2014-12-01 00:00:00.0"), Date.valueOf("2014-12-31 23:59:59.0"), false)
+        try {
+          challenges += Challenge(Some(100), "Fall Hiking", TeamworkType.Team,
+            Date.valueOf("2014-10-03"), Date.valueOf("2014-10-31"), false)
+          challenges += Challenge(Some(101), "Walk to the Moon", TeamworkType.Individual,
+            Date.valueOf("2014-07-20"), Date.valueOf("2014-12-31"), true)
+          challenges += Challenge(Some(102), "Holiday Ship-Shape", TeamworkType.Team,
+            Date.valueOf("2014-12-01"), Date.valueOf("2014-12-31"), false)
+        }
+        catch {
+          case e: Exception => e.printStackTrace()
+        }
       }
   }
   println("EndInitChallengeService")
