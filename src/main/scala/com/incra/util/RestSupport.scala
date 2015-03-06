@@ -1,6 +1,7 @@
 package com.incra.util
 
 import javax.servlet.http.HttpServletResponse
+import com.incra.util.commons.Document
 
 /**
  *
@@ -10,7 +11,6 @@ trait RestSupport {
 
   def status_=(code: Int)
 
-  type Document = Map[String, Any]
 
   def trapData(result: => Any): Document = trapDocument(Map("data" -> result))
 

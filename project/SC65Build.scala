@@ -25,6 +25,7 @@ object SC65Build extends Build {
         "org.scalatra" %% "scalatra" % ScalatraVersion,
         "org.scalatra" %% "scalatra-scalate" % ScalatraVersion,
         "org.scalatra" %% "scalatra-specs2" % ScalatraVersion % "test",
+        "joda-time" % "joda-time" % "2.6",
         "ch.qos.logback" % "logback-classic" % "1.0.6" % "runtime",
         "org.scalatra" %% "scalatra-json" % "2.3.0",
         "org.json4s" %% "json4s-jackson" % "3.2.9",
