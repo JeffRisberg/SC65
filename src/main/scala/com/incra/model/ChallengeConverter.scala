@@ -31,10 +31,14 @@ object ChallengeConverter {
   }
 
   def parse(doc: Document): Challenge = {
+    val teamworkTypeMap = doc("teamworkType").asInstanceOf[Map[String,Any]]
+    val teamworkTypeValue = teamworkTypeMap.get("value").get
+    val teamworkType = TeamworkType.withKey(teamworkTypeValue.asInstanceOf[BigInt].longValue)
+
     Challenge(
       doc.getOrElse("id", None).asInstanceOf[Option[Long]],
       doc("name").asInstanceOf[String],
-      TeamworkType.withKey(doc("teamworkType").asInstanceOf[BigInt].longValue),
+      teamworkType,
       new Date(doc("startDate").asInstanceOf[BigInt].longValue),
       new Date(doc("endDate").asInstanceOf[BigInt].longValue),
       doc("active").asInstanceOf[Boolean]
