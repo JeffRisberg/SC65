@@ -90,4 +90,6 @@ class MainServlet(implicit val bindingModule: BindingModule) extends SC65Stack {
       leaderboardService.findById(params("id").toLong)
     }
   }
+
+  def error(handler: Any): Unit = {}
 }
