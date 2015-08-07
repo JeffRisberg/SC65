@@ -39,10 +39,14 @@ class ChallengeService(implicit val bindingModule: BindingModule) extends Inject
   }
   println("EndInitChallengeService")
 
+  def countDocuments(): Int = {
+    1
+  }
+
   /**
    *
    */
-  def getEntityList(): List[Challenge] = {
+  def getEntityList(limit: Int = 99999, start: Int = 0): List[Challenge] = {
     mainDatabase withSession {
       implicit session =>
 

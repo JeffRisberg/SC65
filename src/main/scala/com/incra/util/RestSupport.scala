@@ -2,6 +2,7 @@ package com.incra.util
 
 import javax.servlet.http.HttpServletResponse
 import com.incra.util.commons.Document
+import com.iv.commons.app.ApiResult
 
 /**
  *
@@ -45,6 +46,17 @@ trait RestSupport {
         log.error(exception.getMessage, exception)
         setErrorStatus()
         Map("success" -> false, "message" -> "An unknown error has occurred")
+    }
+  }
+
+  def trapApiResult(result: => ApiResult): ApiResult = {
+    try {
+      result
+    } catch {
+      case exception: Exception =>
+        log.error(exception.getMessage, exception)
+        setErrorStatus()
+        ApiResult(success = false, data = Nil, metaData = Map.empty, total = 0)
     }
   }
 
